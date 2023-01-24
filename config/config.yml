@@ -1,0 +1,15 @@
+app:
+  name: 'ddos-guard-test'
+  version: '1.0.0'
+
+http:
+  port: '8080'
+
+logger:
+  log_level: 'debug'
+  rollbar_env: 'ddos-guard-test'
+
+postgres:
+  host: 'localhost'
+  port: '5432'
+  sslmode: 'false'
