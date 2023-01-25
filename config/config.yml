@@ -14,3 +14,6 @@ postgres:
   username: "postgres"
   dbname: "postgres"
   sslmode: "disable"
+
+bot:
+  token: "5848629857:AAFdJYGAxYoelvp_sqTEomlr4Ax652kzjas"

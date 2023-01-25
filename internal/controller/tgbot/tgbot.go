@@ -1,8 +1,8 @@
 package tgbot
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/Shteyd/ddos-guard-test/config"
 	"github.com/Shteyd/ddos-guard-test/internal/usecase"
@@ -20,18 +20,10 @@ func InitBot(cfg *config.Config, logger *logger.Logger, userUC usecase.User, mat
 			return func(ctx context.Context, b *bot.Bot, update *models.Update) {
 				if update.Message != nil {
 					username := update.Message.From.Username
-					id, err := userUC.GetUserID(username)
+					_, err := userUC.GetUserID(username)
 					if err != nil {
 						if err := userUC.Store(username); err != nil {
-							logger.Info(fmt.Errorf("bot - middleware - userUC.Store: %w", err))
-							sendErrorMessage(ctx, b, update)
-							return
-						}
-					}
-
-					if id == 0 {
-						if err := userUC.Store(username); err != nil {
-							logger.Info(fmt.Errorf("bot - middleware - userUC.Store: %w", err))
+							logger.Error(fmt.Errorf("bot - middleware - userUC.Store: %w", err))
 							sendErrorMessage(ctx, b, update)
 							return
 						}

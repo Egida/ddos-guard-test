@@ -14,8 +14,8 @@ func NewRouter(handler *gin.Engine, uc usecase.User, l logger.Interface) {
 
 	handler.GET("/ping", func(ctx *gin.Context) { ctx.Status(http.StatusOK) })
 
-	handler.Group("/v1")
+	h := handler.Group("/v1")
 	{
-		newUsersRoutes(handler, uc, l)
+		newUsersRoutes(h, uc, l)
 	}
 }

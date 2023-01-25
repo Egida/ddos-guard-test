@@ -14,7 +14,7 @@ type usersRoutes struct {
 	logger  logger.Interface
 }
 
-func newUsersRoutes(handler *gin.Engine, uc usecase.User, l logger.Interface) {
+func newUsersRoutes(handler *gin.RouterGroup, uc usecase.User, l logger.Interface) {
 	r := &usersRoutes{
 		useCase: uc,
 		logger:  l,

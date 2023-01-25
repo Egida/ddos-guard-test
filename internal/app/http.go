@@ -14,7 +14,6 @@ import (
 	"github.com/Shteyd/ddos-guard-test/pkg/logger"
 	"github.com/Shteyd/ddos-guard-test/pkg/postgres"
 	"github.com/gin-gonic/gin"
-	_ "github.com/lib/pq"
 )
 
 func RunHTTP(cfg *config.Config) {

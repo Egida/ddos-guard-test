@@ -38,7 +38,7 @@ func (r *UserRepo) GetMetric() (entity.Metric, error) {
 }
 
 func (r *UserRepo) Store(username string) error {
-	_, err := r.Exec("INSERT INTO (username) VALUES ($1)", username)
+	_, err := r.Exec("INSERT INTO users (username) VALUES ($1)", username)
 	if err != nil {
 		return fmt.Errorf("UserRepo - Store - r.Exec: %w", err)
 	}

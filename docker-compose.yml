@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  db:
+  database:
     container_name: postgres
     image: postgres:15.1-alpine
     restart: always
@@ -11,44 +11,45 @@ services:
       - POSTGRES_DB=${PG_DB}
       - POSTGRES_PASSWORD=${PG_PASSWORD}
       - POSTGRES_USER=${PG_USER}
-    
+    networks:
+      - default
+
   migrate:
     container_name: migrate-tool
     image: migrate/migrate
+    networks:
+      - default
     volumes:
       - ./migrations:/migrations
     command: ["-path", "/migrations", "-database",  "postgres://${PG_USER}:${PG_PASSWORD}@database:5432/${PG_DB}?sslmode=disable", "up"]
     depends_on:
-      - db
-  
+      - database
+
   httpserver:
     container_name: httpserver
     build:
       context: ./
       dockerfile: ./docker/http/Dockerfile
-    environment:
-      - PG_DB=${PG_DB}
-      - PG_USER=${PG_USER}
-      - PG_PASSWORD=${PG_PASSWORD}
+    env_file:
+      - .env
+    depends_on:
+      - database
+    networks:
+      - default
     ports:
       - 8080:8080
-    depends_on:
-      - db
-      - migrate
 
   telegrambot:
     container_name: telegrambot
     build:
       context: ./
       dockerfile: ./docker/bot/Dockerfile
-    environment:
-      - PG_DB=${PG_DB}
-      - PG_USER=${PG_USER}
-      - PG_PASSWORD=${PG_PASSWORD}
-      - TG_TOKEN=${TG_TOKEN}
+    env_file:
+      - .env
+    networks:
+      - default
     depends_on:
-      - db
-      - migrate
+      - database
 
 networks:
-  new:
+  default:

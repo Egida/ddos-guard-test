@@ -9,9 +9,9 @@ import (
 type (
 	Config struct {
 		HTTP `yaml:"http"`
-		Log `yaml:"logger"`
-		PG `yaml:"postgres"`
-		Bot `yaml:"bot"`
+		Log  `yaml:"logger"`
+		PG   `yaml:"postgres"`
+		Bot  `yaml:"bot"`
 	}
 
 	HTTP struct {
@@ -32,7 +32,7 @@ type (
 	}
 
 	Bot struct {
-		Token string `env:"TG_TOKEN" env-default:"5848629857:AAFdJYGAxYoelvp_sqTEomlr4Ax652kzjas"`
+		Token string `yaml:"token" env:"TG_TOKEN"`
 	}
 )
 

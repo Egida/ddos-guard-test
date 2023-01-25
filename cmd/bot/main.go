@@ -5,6 +5,7 @@ import (
 
 	"github.com/Shteyd/ddos-guard-test/config"
 	"github.com/Shteyd/ddos-guard-test/internal/app"
+	_ "github.com/lib/pq"
 )
 
 func main() {
