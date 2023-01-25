@@ -9,11 +9,9 @@ logger:
   log_level: "debug"
 
 postgres:
-  host: "localhost"
+  host: "database"
   port: "5432"
   username: "postgres"
   dbname: "postgres"
   sslmode: "disable"
 
-bot:
-  token: "5848629857:AAFdJYGAxYoelvp_sqTEomlr4Ax652kzjas"

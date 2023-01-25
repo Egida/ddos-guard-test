@@ -25,9 +25,9 @@ type (
 	PG struct {
 		Host     string `yaml:"host"     env:"PG_HOST"     env-default:"localhost"`
 		Port     string `yaml:"port"     env:"PG_PORT"     env-default:"5432"`
-		Username string `yaml:"username" env:"PG_DB"       env-default:"postgres"`
+		Username string `yaml:"username" env:"PG_NAME"     env-default:"postgres"`
 		Password string `                env:"PG_PASSWORD" env-default:"qwerty123"`
-		DBName   string `yaml:"dbname"   env:"PG_NAME"     env-default:"postgres"`
+		DBName   string `yaml:"dbname"   env:"PG_DB"       env-default:"postgres"`
 		SSLMode  string `yaml:"sslmode"  env:"PG_SSL"      env-default:"disable"`
 	}
 
