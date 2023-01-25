@@ -8,49 +8,45 @@ import (
 
 type (
 	Config struct {
-		App  `yaml:"app"`
 		HTTP `yaml:"http"`
-		Log  `yaml:"logger"`
-		PG   `yaml:"postgres"`
-		Bot  `yaml:"bot"`
-	}
-
-	App struct {
-		Name    string `env-required:"true" yaml:"name"    env:"APP_NAME"`
-		Version string `env-required:"true" yaml:"version" env:"APP_VERSION"`
+		Log `yaml:"logger"`
+		PG `yaml:"postgres"`
+		Bot `yaml:"bot"`
 	}
 
 	HTTP struct {
-		Port string `env-required:"true" yaml:"port" env:"HTTP_PORT"`
+		Port string `yaml:"port" env:"HTTP_PORT" env-default:"8080"`
 	}
 
 	Log struct {
-		Level string `env-required:"true" yaml:"log_level" env:"LOG_LEVEL"`
+		Level string `yaml:"log_level" env:"LOG_LEVEL" env-default:"debug"`
 	}
 
 	PG struct {
-		Host     string `env-required:"true" yaml:"host"    env:"PG_HOST"`
-		Port     string `env-required:"true" yaml:"port"    env:"PG_PORT"`
-		Username string `env-required:"true"                env:"PG_USERNAME"`
-		Password string `env-required:"true"                env:"PG_PASSWORD"`
-		DBName   string `env-required:"true" yaml:"dbname"  env:"PG_DBNAME"`
-		SSLMode  string `env-required:"true" yaml:"sslmode" env:"PG_SSLMODE"`
+		Host     string `yaml:"host"     env:"PG_HOST"     env-default:"localhost"`
+		Port     string `yaml:"port"     env:"PG_PORT"     env-default:"5432"`
+		Username string `yaml:"username" env:"PG_DB"       env-default:"postgres"`
+		Password string `                env:"PG_PASSWORD" env-default:"qwerty123"`
+		DBName   string `yaml:"dbname"   env:"PG_NAME"     env-default:"postgres"`
+		SSLMode  string `yaml:"sslmode"  env:"PG_SSL"      env-default:"disable"`
 	}
 
 	Bot struct {
-		Token string `env-required:"true" env:"TG_TOKEN"`
+		Token string `env:"TG_TOKEN" env-default:"5848629857:AAFdJYGAxYoelvp_sqTEomlr4Ax652kzjas"`
 	}
 )
 
 func NewConfig() (*Config, error) {
 	cfg := &Config{}
 
-	if err := cleanenv.ReadConfig("./config/config.yml", cfg); err != nil {
-		return nil, fmt.Errorf("config - NewConfig - cleanenv.ReadConfig: %w", err)
+	err := cleanenv.ReadConfig("./config/config.yml", cfg)
+	if err != nil {
+		return nil, fmt.Errorf("config error: %w", err)
 	}
 
-	if err := cleanenv.ReadEnv(cfg); err != nil {
-		return nil, fmt.Errorf("config - NewConfig - cleanenv.ReadEnv: %w", err)
+	err = cleanenv.ReadEnv(cfg)
+	if err != nil {
+		return nil, err
 	}
 
 	return cfg, nil

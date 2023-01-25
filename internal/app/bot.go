@@ -13,6 +13,7 @@ import (
 	"github.com/Shteyd/ddos-guard-test/internal/usecase"
 	"github.com/Shteyd/ddos-guard-test/pkg/logger"
 	"github.com/Shteyd/ddos-guard-test/pkg/postgres"
+	_ "github.com/lib/pq"
 )
 
 func RunBot(cfg *config.Config) {
@@ -40,6 +41,7 @@ func RunBot(cfg *config.Config) {
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
 
+	println(cfg.Bot.Token)
 	b, err := tgbot.InitBot(cfg, userUseCase, mathUseCase)
 	if err != nil {
 		logger.Fatal(fmt.Errorf("bot - Run - tgbot.InitBot: %w", err))
