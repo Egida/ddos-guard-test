@@ -1,5 +1,14 @@
 # ddos-guard-test
 
+## Как использовать:
+Tgbot commands:
+- /start - стандартное приветствие
+- /calculate %formula% - решение выраждения
+
+HTTP server routes:
+- /ping - Пинг сервера
+- v1/metrics - получение метрики (user_count)
+
 ## Немного про архитектуру:
 За референс брал https://github.com/evrone/go-clean-template/
 
