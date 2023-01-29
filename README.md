@@ -7,12 +7,12 @@ Tgbot commands:
 
 HTTP server routes:
 - /ping - Пинг сервера
-- v1/metrics - получение метрики (user_count)
+- /v1/metrics - получение метрики (user_count)
 
 ## Немного про архитектуру:
 За референс брал https://github.com/evrone/go-clean-template/
 
-### cmd/bot cmd/http
+### cmd/bot && cmd/http
 Точки входа в аппы
 
 ### config/
@@ -24,20 +24,20 @@ HTTP server routes:
 ### internal/app
 Модули запуска каждого приложения
 
-### controller/
+### internal/controller/
 Получение/обработка запросов в http и tg
 
-### entity
+### internal/entity/
 Модели данных
 
-### infrastructure
+### internal/infrastructure/
 Слой с логикой взаимодействия с бд, сторонними библиотеками и тд.
 
-### infrastructure/mathservice
+### internal/infrastructure/mathservice
 Сервис получения, обработки и отдачи ответов
 
-### infrastructure/repository
+### internal/infrastructure/repository
 Репозиторий. Работа с БД, в моем случае с PostgreSQL
 
-### usecase
+### internal/usecase
 Слой юзкейсов
